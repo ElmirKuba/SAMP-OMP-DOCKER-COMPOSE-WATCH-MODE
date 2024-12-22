@@ -1,0 +1,65 @@
+FROM ubuntu:22.04
+
+WORKDIR /omp-server-service
+
+EXPOSE 7777/udp
+
+RUN dpkg --add-architecture i386
+
+RUN apt update && apt upgrade -y \
+    && apt-get install -y sudo \
+    && apt update \
+    && apt-get install -y \
+        libfontconfig1:i386 \
+        libx11-6:i386 \
+        libxrender1:i386 \
+        libxext6:i386 \
+        libgl1-mesa-glx:i386 \
+        libglu1-mesa:i386 \
+        libglib2.0-0:i386 \
+        libsm6:i386 \
+        lib32stdc++6 \
+        gawk \
+        wget \
+        curl \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN wget -O /usr/bin/jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 \
+    && chmod +x /usr/bin/jq
+
+# Установка Node.js LTS
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g npm@latest \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN npm i -g nodemon@latest
+
+ARG OMP_VERSION
+ENV OMP_VERSION=${OMP_VERSION}
+
+RUN mkdir -p .temp \
+    && wget https://github.com/openmultiplayer/open.mp/releases/download/${OMP_VERSION}/open.mp-linux-x86.tar.gz -O .temp/omp-server.tar.gz \
+    && tar -xzf .temp/omp-server.tar.gz -C .temp \
+    && rm .temp/omp-server.tar.gz \
+    && mv .temp/Server .temp/omp-server
+
+RUN rm -rf .temp/omp-server/gamemodes/*
+
+RUN mv .temp/omp-server /omp-server-service/omp-server
+
+RUN wget https://github.com/pawn-lang/compiler/releases/download/v3.10.10/pawnc-3.10.10-linux.tar.gz \
+    && tar -xzf pawnc-3.10.10-linux.tar.gz -C /usr/local/bin/ \
+    && mv /usr/local/bin/pawnc-3.10.10-linux/bin/pawncc /usr/local/bin/ \
+    && cp /usr/local/bin/pawnc-3.10.10-linux/lib/libpawnc.so /usr/lib/ \
+    && ldconfig \
+    && rm -rf /usr/local/bin/pawnc-3.10.10-linux pawnc-3.10.10-linux.tar.gz
+
+COPY . .
+
+RUN chmod 777 -R unix-scripts/nodemon-watcher.sh \
+    && chmod +x unix-scripts/nodemon-watcher.sh
+
+CMD ["sh", "unix-scripts/nodemon-watcher.sh"]

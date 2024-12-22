@@ -1,0 +1,7 @@
+{
+  "watch": ["omp-server"],
+  "ext": "pwn,inc,cfg",
+  "exec": "bash unix-scripts/omp-server-starter.sh",
+  "ignore": [],
+  "delay": "1000"
+}
