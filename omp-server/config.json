@@ -4,7 +4,7 @@
     "cdn": "",
     "enable": true,
     "models_path": "models",
-    "port": 7777,
+    "port": 1111,
     "web_server_bind": ""
   },
   "banners": {
@@ -85,7 +85,7 @@
     "on_foot_sync_rate": 30,
     "player_marker_sync_rate": 2500,
     "player_timeout": 10000,
-    "port": 7777,
+    "port": 1111,
     "public_addr": "",
     "stream_radius": 200,
     "stream_rate": 1000,

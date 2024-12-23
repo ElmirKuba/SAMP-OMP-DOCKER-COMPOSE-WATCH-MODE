@@ -2,7 +2,10 @@ FROM ubuntu:22.04
 
 WORKDIR /omp-server-service
 
-EXPOSE 7777/udp
+ARG OMP_SERVER_PORT
+ENV OMP_SERVER_PORT=${OMP_SERVER_PORT}
+
+EXPOSE ${OMP_SERVER_PORT}/udp
 
 RUN dpkg --add-architecture i386
 
@@ -62,4 +65,4 @@ COPY . .
 RUN chmod 777 -R unix-scripts/nodemon-watcher.sh \
     && chmod +x unix-scripts/nodemon-watcher.sh
 
-CMD ["sh", "unix-scripts/nodemon-watcher.sh"]
+CMD ["bash", "unix-scripts/nodemon-watcher.sh"]
