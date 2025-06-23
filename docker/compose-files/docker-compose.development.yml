@@ -1,39 +1,39 @@
 services:
-  # omp-server-mysql:
-  #   container_name: omp-server-mysql
-  #   image: mysql:5.6.51
-  #   restart: unless-stopped
-  #   platform: linux/amd64
-  #   environment:
-  #     - MYSQL_DATABASE=${MYSQL_HOST_AND_NAME_DATABASE}
-  #     - MYSQL_USER=${MYSQL_USER}
-  #     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-  #     - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-  #   volumes:
-  #     - ./../sql-files/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-  #     - ./../volumes/mysql_data:/var/lib/mysql
-  #   expose:
-  #     - ${MYSQL_PORT}
-  #   networks:
-  #     - omp-network
+  omp-server-mysql:
+    container_name: omp-server-mysql
+    image: mysql:5.6.51
+    restart: unless-stopped
+    platform: linux/amd64
+    environment:
+      - MYSQL_DATABASE=${MYSQL_HOST_AND_NAME_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ./../sql-files/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./../volumes/mysql_data:/var/lib/mysql
+    expose:
+      - ${MYSQL_PORT}
+    networks:
+      - omp-network
 
-  # omp-server-pma:
-  #   container_name: omp-server-pma
-  #   image: phpmyadmin
-  #   restart: unless-stopped
-  #   platform: linux/amd64
-  #   environment:
-  #     - PMA_ARBITRARY=0
-  #     - PMA_HOST=${MYSQL_HOST_AND_NAME_DATABASE}
-  #     - PMA_PORT=${MYSQL_PORT}
-  #   expose:
-  #     - ${PMA_INTERNAL_PORT}
-  #   ports:
-  #     - ${PMA_EXTERNAL_PORT}:${PMA_INTERNAL_PORT}
-  #   networks:
-  #     - omp-network
-  #   depends_on:
-  #     - omp-server-mysql
+  omp-server-pma:
+    container_name: omp-server-pma
+    image: phpmyadmin
+    restart: unless-stopped
+    platform: linux/amd64
+    environment:
+      - PMA_ARBITRARY=0
+      - PMA_HOST=${MYSQL_HOST_AND_NAME_DATABASE}
+      - PMA_PORT=${MYSQL_PORT}
+    expose:
+      - ${PMA_INTERNAL_PORT}
+    ports:
+      - ${PMA_EXTERNAL_PORT}:${PMA_INTERNAL_PORT}
+    networks:
+      - omp-network
+    depends_on:
+      - omp-server-mysql
 
   omp-server-service:
     container_name: omp-server-service
@@ -73,8 +73,7 @@ services:
       - OMP_SERVER_GAMEMODES=${OMP_SERVER_GAMEMODES}
       - OMP_ENABLE_COMPILATION_GAMEMODES=${OMP_ENABLE_COMPILATION_GAMEMODES}
       - OMP_ENABLE_CONFIG_UPDATER=${OMP_ENABLE_CONFIG_UPDATER}
-    command: ['sh', '-c', 'sleep 1 && unix-scripts/nodemon-watcher.sh']
-    # command: ['sh', '-c', 'sleep 30 && unix-scripts/nodemon-watcher.sh']
+    command: ['sh', '-c', 'sleep 30 && unix-scripts/nodemon-watcher.sh']
     expose:
       - ${OMP_SERVER_PORT}
     ports:
