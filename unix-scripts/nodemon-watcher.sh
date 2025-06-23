@@ -2,10 +2,10 @@
 
 echo "STARTER NODEMON WATCHER!"
 
-chmod 777 omp-server/bans.json || echo "bans.json не найден или недоступен"
-chmod 777 omp-server/config.json || echo "config.json не найден или недоступен"
-chmod 777 omp-server/mysql.ini || echo "config.json не найден или недоступен"
-chmod 777 omp-server/omp-server || echo "omp-server не найден или недоступен"
+chmod -R 777 omp-server/bans.json || echo "omp-server/bans.json не найден или недоступен"
+chmod -R 777 omp-server/config.json || echo "omp-server/config.json не найден или недоступен"
+chmod -R 777 omp-server/mysql.ini || echo "omp-server/config.json не найден или недоступен"
+chmod -R 777 omp-server/scriptfiles || echo "omp-server/scriptfiles не найден или недоступен"
 
 # Обновлятор конфиг-файлов ________________________________________
 if [ "$OMP_ENABLE_CONFIG_UPDATER" = "true" ]; then
