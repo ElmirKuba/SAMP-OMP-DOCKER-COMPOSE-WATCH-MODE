@@ -17,9 +17,7 @@
   },
   "chat_input_filter": true,
   "enable_query": true,
-  "exclude": [
-    "Fixes"
-  ],
+  "exclude": ["Fixes"],
   "game": {
     "allow_interior_weapons": true,
     "chat_radius": 200,
@@ -101,9 +99,7 @@
       "sscanf",
       "pawnregex"
     ],
-    "main_scripts": [
-      "main 1"
-    ],
+    "main_scripts": ["main 1"],
     "side_scripts": []
   },
   "rcon": {
