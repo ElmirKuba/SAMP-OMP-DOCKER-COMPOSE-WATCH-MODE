@@ -48,15 +48,15 @@ services:
     restart: unless-stopped
     platform: linux/amd64
     volumes:
-      # - ./../../omp-server/components:/omp-server-service/omp-server/components:rw
-      # - ./../../omp-server/filterscripts:/omp-server-service/omp-server/filterscripts:rw
-      # - ./../../omp-server/gamemodes:/omp-server-service/omp-server/gamemodes:rw
-      # - ./../../omp-server/include:/omp-server-service/omp-server/include:rw
-      # - ./../../omp-server/logs:/omp-server-service/omp-server/logs:rw
-      # - ./../../omp-server/models:/omp-server-service/omp-server/models:rw
-      # - ./../../omp-server/pawno:/omp-server-service/omp-server/pawno:rw
-      # - ./../../omp-server/plugins:/omp-server-service/omp-server/plugins:rw
-      # - ./../../omp-server/scriptfiles:/omp-server-service/omp-server/scriptfiles:rw
+      - ./../../omp-server/components:/omp-server-service/omp-server/components:rw
+      - ./../../omp-server/filterscripts:/omp-server-service/omp-server/filterscripts:rw
+      - ./../../omp-server/gamemodes:/omp-server-service/omp-server/gamemodes:rw
+      - ./../../omp-server/include:/omp-server-service/omp-server/include:rw
+      - ./../../omp-server/logs:/omp-server-service/omp-server/logs:rw
+      - ./../../omp-server/models:/omp-server-service/omp-server/models:rw
+      - ./../../omp-server/pawno:/omp-server-service/omp-server/pawno:rw
+      - ./../../omp-server/plugins:/omp-server-service/omp-server/plugins:rw
+      - ./../../omp-server/scriptfiles:/omp-server-service/omp-server/scriptfiles:rw
       - ./../../omp-server/bans.json:/omp-server-service/omp-server/bans.json:rw
       - ./../../omp-server/config.json:/omp-server-service/omp-server/config.json:rw
       - ./../../omp-server/mysql.ini:/omp-server-service/omp-server/mysql.ini:rw
