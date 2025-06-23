@@ -161,9 +161,14 @@ CB:OnServerUpdate()
 
 stock ConnectMySQL()
 {
-    //dbHandle = mysql_connect("localhost", "root", "", "tropiki");
-    dbHandle = mysql_connect_file(); // Подключение через mysql.ini
-    switch(mysql_errno())
+		//dbHandle = mysql_connect("localhost", "root", "", "tropiki");
+		dbHandle = mysql_connect_file(); // Подключение через mysql.ini
+		print(!" _ ");
+		print(!" _ ");
+		print(!" _ ");
+		print(!" _ ");
+		print(!" _ ");
+		switch(mysql_errno())
 	{
 	    case 0: print(!"[Info] [DataBase] Connect to DB - Success!");
 	    case 1044: print(!"[Error] [DataBase] #1044 - Error connecting to the database! [The user has been denied access to the database]");
@@ -173,6 +178,11 @@ stock ConnectMySQL()
 	    case 2005: print(!"[Error] [DataBase] #2005 - Error connecting to the database! [Unknown server]");
 	    default: printf("[Error] [DataBase] #%d - Error connecting to the database! [Unknown error]", mysql_errno());
 	}
+		print(!" _ ");
+		print(!" _ ");
+		print(!" _ ");
+		print(!" _ ");
+		print(!" _ ");
 	mysql_log(ERROR | WARNING);
 	mysql_set_charset(!"cp1251");
 }
